@@ -31,7 +31,14 @@ function update() {
        ) {
       display = 'block';
     }
+    var str=item.querySelector(".todo-label").innerHTML;console.log(str);console.log($(".search").value);
+    console.log(str.search($(".search").value));
+    if(str.search($(".search").value)==-1&&(item.style.display=='block'||display=='block')) 
+    {
+      display = 'none';
+    }
     item.style.display = display;
+    
   }
 
   var completedNum = items.length - leftNum;
@@ -119,7 +126,6 @@ function addTodo(message) {
   todoList.insertBefore(item, todoList.firstChild);
   update();
 }
-
 function upTodo(itemId) {
   var upItem=document.getElementById(itemId);
   var complete=upItem.classList.contains(CL_COMPLETED)?1:0;
