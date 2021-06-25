@@ -17,7 +17,11 @@ function update() {
 
   for (i = 0; i < items.length; ++i) {
     item = items[i];
-    if (!item.classList.contains(CL_COMPLETED)) leftNum++;
+    if (!item.classList.contains(CL_COMPLETED)) 
+    {
+      leftNum++;
+    }
+    else item.querySelector(".toggle").checked=true;
 
     // filters
     display = 'none';
@@ -56,6 +60,7 @@ function addTodo(message) {
     '  <button class="destroy"></button>',
     '</div>'
   ].join('');
+  localStorage.setItem(id,item.innerHTML);
 
   var label = item.querySelector('.todo-label');
   label.addEventListener('dblclick', function() {
@@ -214,5 +219,25 @@ window.onload = function init() {
     })(filters[i])
   }
 
+  var count=localStorage.getItem("count");
+  for(var i=count-1;i>=0;i--)
+  {
+    var item=JSON.parse(localStorage.getItem(i));
+    addTodo(item['label']);
+    if(item['status']=='y') document.getElementById("item"+(guid-1)).classList.add(CL_COMPLETED);
+  }
   update();
+}
+
+
+window.onbeforeunload=function(){
+  let todos=$All('.todo-list li');
+  var count=0;
+  for(var i=0;i<todos.length;i++)
+  {
+    var item={"status":todos[i].classList.contains(CL_COMPLETED)?'y':'n',"label":todos[i].querySelector('.todo-label').innerHTML};
+    localStorage.setItem(count,JSON.stringify(item));
+    count++;
+  }
+  localStorage.setItem("count",count);
 };
