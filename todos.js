@@ -56,7 +56,6 @@ function addTodo(message) {
     '<div class="view">',
     '  <input class="toggle" type="checkbox">',
     '  <label class="todo-label">' + message + '</label>',
-    '<label class="date"></label><input id="meeting" type="date" value="2014-01-13"/>',
     '  <button class="up"></button>',
     '  <button class="destroy"></button>',
     '</div>'
